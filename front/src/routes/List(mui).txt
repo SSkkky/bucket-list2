@@ -1,0 +1,59 @@
+// List.tsx
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { useStore, BucketList } from '../store';
+import { Button, Card, CardContent, Typography, Container, Grid } from '@material-ui/core';
+
+const List: React.FC = () => {
+  const { bucketLists, setBucketLists } = useStore();
+
+  useEffect(() => {
+    const fetchBucketLists = async () => {
+      const response = await axios.get('http://localhost:3333/data');
+      if (Array.isArray(response.data)) {
+        setBucketLists(response.data);
+      } else {
+        console.error('Server response is not an array:', response.data);
+      }
+    };
+    fetchBucketLists();
+  }, [setBucketLists]);
+  
+    
+  const onDeleteHandler = async (item: BucketList) => {
+    const response = await axios.delete(`http://localhost:3333/data/${item.id}`);
+    if (response.status === 200) {
+      const newBucketLists = bucketLists.filter((list:BucketList) => list.id !== item.id);
+      setBucketLists(newBucketLists);
+    }
+  }    
+
+  return (
+    <Container maxWidth="md">
+      <Grid container spacing={3}>
+        {bucketLists.map((item) => (
+          <Grid item xs={12} key={item.id}>
+            <Card>
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {item.title}
+                </Typography>
+                <Typography color="textSecondary">
+                  {item.description}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  {item.date}
+                </Typography>
+                <Button color="secondary" onClick={() => onDeleteHandler(item)}>
+                  삭제
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
+  );
+};
+
+export default List;

@@ -1,0 +1,44 @@
+// // List.tsx
+// import React, { useEffect } from 'react';
+// import axios from 'axios';
+// import { useStore, BucketList } from '../store';
+
+// const List: React.FC = () => {
+//   const { bucketLists, setBucketLists } = useStore();
+
+//   useEffect(() => {
+//     const fetchBucketLists = async () => {
+//       const response = await axios.get('http://localhost:3333/data');
+//       if (Array.isArray(response.data)) {
+//         setBucketLists(response.data);
+//       } else {
+//         console.error('Server response is not an array:', response.data);
+//       }
+//     };
+//     fetchBucketLists();
+//   }, [setBucketLists]);
+  
+    
+//   const onDeleteHandler = async (item: BucketList) => {
+//     const response = await axios.delete(`http://localhost:3333/data/${item.id}`);
+//     if (response.status === 200) {
+//       const newBucketLists = bucketLists.filter((list:BucketList) => list.id !== item.id);
+//       setBucketLists(newBucketLists);
+//     }
+//   }    
+
+//   return (
+//     <div>
+//       {bucketLists.map((item:BucketList) => (
+//         <div key={item.id}>
+//           <h2>{item.title}</h2>
+//           <p>{item.description}</p>
+//           <p>{item.date}</p>
+//           <button onClick={() => {onDeleteHandler(item)}}>삭제</button>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default List;

@@ -1,0 +1,69 @@
+// Write.tsx
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useStore, BucketList } from '../store';
+import { TextField, Button, Grid, Container } from '@material-ui/core';
+
+const Write: React.FC = () => {
+    const { bucketLists, setBucketLists } = useStore();
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+    const formattedDate = `${year}년 ${month}월 ${date}일`;
+    
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const newBucketList: BucketList = {
+      id: new Date().getTime().toString(),
+      state: false,
+      title: title,
+      description: description,
+      date: formattedDate,
+    };
+    const response = await axios.post('http://localhost:3333/data', newBucketList);
+    if (response.status === 200) {
+      const newBucketLists = [...bucketLists, response.data];
+      setBucketLists(newBucketLists);
+    }
+  };  
+      
+
+  return (
+    <Container maxWidth="sm">
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <TextField
+              required
+              label="Title"
+              fullWidth
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              label="Description"
+              fullWidth
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
+    </Container>
+  );
+};
+
+export default Write;
