@@ -13,8 +13,11 @@ app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000'
 }));
-const bucketListRouter = require('./routes/bucketList');
-app.use('/', bucketListRouter);
+
+// const bucketListRouter = require('./routes/bucketList');
+// app.use('/', bucketListRouter);
+const todoRouter = require('./routes/todo');
+app.use('/', todoRouter);
 
 
 app.listen(3333, () => {
