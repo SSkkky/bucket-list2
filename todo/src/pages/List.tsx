@@ -23,10 +23,17 @@ function List() {
         <div className='todoList'>
         {
         todos.map((item:todo) => { 
-          return <div key={item.id} onClick={() => { updateHandle(item)}}>
-            <span>{item.date}</span>
-            <h2>{item.title}</h2>
-            <p>{item.description}</p>
+          return <div key={item.id} onClick={() => { updateHandle(item) }} className='listItem'>
+            <p className='activeBtn'>
+              <p className='activeCheck'></p>
+            </p>
+            <div className='listInner'>
+              <div className='listHead'>
+                <h2 className='title'>{item.title}</h2>
+                <span className='date'>{item.date}</span>
+              </div>
+              <p className='des'>{item.description}</p>
+            </div>
           </div>
         })
             }
