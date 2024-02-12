@@ -16,17 +16,21 @@ export const useStore = create<Store>((set) => ({
     catch (error) { console.error('post 에러!!', error); }
     },
   updateTodo: async (id, updatedTodo) => {
-      try {
-        const response = await axios.put(`http://localhost:3333/data/${id}`, updatedTodo);
+    try {
+      const response = await axios.put(`http://localhost:3333/data/${id}`, updatedTodo);
+      if (response.status === 200) {
         set((state) => ({
           todos: state.todos.map((todo) =>
-            todo.id === id ? response.data : todo
+            todo.id === id ? { ...todo, ...updatedTodo } : todo
           ),
         }));
-      } catch (error) {
-        console.error('update 에러!!', error);
+      } else {
+        console.error('update 에러!!', response.status);
       }
-    },
+    } catch (error) {
+      console.error('update 에러!!', error);
+    }
+  },    
   deleteTodo: async (id) => {
       await axios.delete(`http://localhost:3333/data/${id}`);
     try {

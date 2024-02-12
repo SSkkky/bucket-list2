@@ -24,6 +24,11 @@ function App() {
 
   const postTodo = useStore((state) => state.postTodo);
   const deleteTodo = useStore((state) => state.deleteTodo);
+  const updateTodo = useStore((state) => state.updateTodo);
+  const [isOnUpdate, setIsOnUpdate] = useState(false);
+  const [updateData, setUpdateData] = useState<todo>({
+    id:0, state:false, title:'', description:'', date:''
+  });
 
   
   const dateFn = () => {
@@ -39,19 +44,30 @@ function App() {
     setTitleValue('');
     setDesValue('');
 
-    const newTodo:todo = {
-      id: Number(new Date().getTime()),
+    const data: todo = {
+      id: isOnUpdate ? updateData.id : Number(new Date().getTime()),
       state: false,
       title: titleValue,
       description: desValue,
-      date: formattedDate,
+      date: isOnUpdate ? updateData.date : formattedDate,
     }
-
-    postTodo(newTodo)
+    
+    if (isOnUpdate) {
+      console.log(data, '<--수정 데이터')
+    }
+    
+    isOnUpdate ? updateTodo(data.id, data) : postTodo(data);
+    setIsOnUpdate(false);
   }
 
   const delHandle = (id:number) => { 
     deleteTodo(id)
+  }
+
+  const updateHandle = (item: todo) => {
+    console.log(item, '<--item')
+    setIsOnUpdate(true);
+    setUpdateData(item)
   }
 
   return (
@@ -60,12 +76,12 @@ function App() {
       <div>
         <input placeholder='제목을 입력해주세용' value={titleValue} onChange={titleChange}/><br/>
         <input placeholder='내용을 입력해주세용' value={desValue} onChange={desChange}/><br/>
-        <button onClick={postHandle}>전송</button>
+        <button onClick={postHandle}>{ isOnUpdate ? '수정' : '전송'}</button>
       </div>
       <br />
       {
         todos.map((item:todo) => { 
-          return <div key={item.id} style={{border: '1px solid black'}}>
+          return <div key={item.id} style={{ border: '1px solid black' }} onClick={() => { updateHandle(item)}}>
             <span>{item.date}</span>
             <h2>{item.title}</h2>
             <p>{item.description}</p>
