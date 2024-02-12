@@ -40,7 +40,7 @@ function App() {
   }
   const formattedDate = dateFn();
 
-  const postHandle = () => {
+  const postHandle = async () => {
     setTitleValue('');
     setDesValue('');
 
@@ -52,11 +52,7 @@ function App() {
       date: isOnUpdate ? updateData.date : formattedDate,
     }
     
-    if (isOnUpdate) {
-      console.log(data, '<--수정 데이터')
-    }
-    
-    isOnUpdate ? updateTodo(data.id, data) : postTodo(data);
+    isOnUpdate ? await updateTodo(data.id, data) : await postTodo(data);
     setIsOnUpdate(false);
   }
 
@@ -65,18 +61,20 @@ function App() {
   }
 
   const updateHandle = (item: todo) => {
-    console.log(item, '<--item')
+    // console.log(item, '<--item')
+    setTitleValue(item.title)
+    setDesValue(item.description)
     setIsOnUpdate(true);
     setUpdateData(item)
   }
 
   return (
     <div className="App">
-      <h1>투두리스트</h1>
+      <h1>{isOnUpdate ? '기존 일정 수정하기' : '새 일정 작성하기'}</h1>
       <div>
         <input placeholder='제목을 입력해주세용' value={titleValue} onChange={titleChange}/><br/>
         <input placeholder='내용을 입력해주세용' value={desValue} onChange={desChange}/><br/>
-        <button onClick={postHandle}>{ isOnUpdate ? '수정' : '전송'}</button>
+        <button onClick={postHandle}>{ isOnUpdate ? '수정' : '입력' }</button>
       </div>
       <br />
       {
