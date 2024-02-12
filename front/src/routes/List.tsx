@@ -14,7 +14,7 @@ const List: React.FC = () => {
         setBucketLists(response.data);
       } else {
         console.error('Server response is not an array:', response.data);
-      }
+      } 
     };
     fetchBucketLists();
   }, [setBucketLists]);
