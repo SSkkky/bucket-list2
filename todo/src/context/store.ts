@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import axios from 'axios';
-import { Store, Update, Value } from '../model/datatype';
+import { Store, Update, Value, Write } from '../model/datatype';
 
 export const useStore = create<Store>((set) => ({
   todos: [],
@@ -55,4 +55,9 @@ export const valueStore = create<Value>((set) => ({
   setTitleValue: (titleValue) => set({ titleValue }),
   desValue: '',
   setDesValue: (desValue) => set({ desValue }),
+}))
+
+export const writeStore = create<Write>((set) => ({
+  isOnWrite: false,
+  setIsOnWrite: (isOnWrite) => set({ isOnWrite })
 }))

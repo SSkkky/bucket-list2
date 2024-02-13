@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
 import { todo } from '../model/datatype';
-import { useStore, valueStore, updateStore } from '../context/store';
+import { useStore, valueStore, updateStore, writeStore } from '../context/store';
 
 function List() {
     const todos = useStore((state) => state.todos);
     const fetchTodos = useStore((state) => state.fetchTodos);
     const { setIsOnUpdate, setUpdateData } = updateStore();
-    const { setTitleValue, setDesValue } = valueStore();
+  const { setTitleValue, setDesValue } = valueStore();
+  const { setIsOnWrite } = writeStore();
     
     useEffect(() => {
       fetchTodos();
     }, [fetchTodos])
   
-    const updateHandle = (item: todo) => {
+  const updateHandle = (item: todo) => {
+      setIsOnWrite(true);
       setTitleValue(item.title)
       setDesValue(item.description)
       setIsOnUpdate(true);

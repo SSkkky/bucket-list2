@@ -1,0 +1,69 @@
+.todoWrite {
+    padding: 1rem;
+
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+
+    width: 430px;
+    max-width: 430px;
+    height: 50%;
+    border-radius: 1rem;
+    background-color: #fff;
+
+    .backBtn {
+        margin-bottom: 1rem;
+    }
+
+    .todoWriteTop {
+        display: flex;
+        justify-content: space-between;
+
+        h2 {
+            font-weight: 400;
+        }
+
+        .currentTime {
+            color: $gray2;
+        }
+    }
+
+    .todoWriteInput {
+        width: 100%;
+        height: calc(100% - 90px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        color: $gray2;
+
+        input {
+            width: 100%;
+        }
+
+        .writeTitle {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .writeDes {}
+
+        button {
+            width: 100%;
+            padding: 0.5rem;
+            outline: none;
+            border: 0;
+        }
+
+        .delBtn {
+            border: 1px solid #000;
+            margin-bottom: 10px;
+        }
+
+        .postBtn {
+            background-color: #000;
+            color: #fff;
+        }
+    }
+}

@@ -3,16 +3,18 @@
     flex-direction: column;
     gap: 1rem;
 
-    position: absolute;
-    left: 0;
-
     .listItem {
+        margin-left: 1rem;
+        position: relative;
         display: flex;
         gap: 1rem;
         align-items: center;
 
-
         .activeBtn {
+            position: absolute;
+            left: -1.75rem;
+            top: 1.75rem;
+
             width: 1rem;
             height: 1rem;
             border-radius: 50%;

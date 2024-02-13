@@ -28,3 +28,8 @@ export type Value = {
     desValue: string;
     setDesValue: (desValue:string) => void;
 }
+
+export type Write = {
+    isOnWrite: boolean;
+    setIsOnWrite: (titleValue: boolean) => void;
+}

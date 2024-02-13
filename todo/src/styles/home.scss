@@ -26,6 +26,7 @@
             font-family: "Inter", sans-serif;
             font-weight: 700;
             font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .Home-list-cont {
@@ -74,4 +75,15 @@
         line-height: 1rem;
         color: #fff;
     }
+}
+
+.active::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    backdrop-filter: brightness(50%);
 }
